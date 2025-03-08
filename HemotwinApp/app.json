@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "MyHematwin",
+    "slug": "MyHematwin",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/appicon.png",
+        "backgroundColor": "#ffffff",
+        "package": "com.MyHematwinApp"
+      },
+      "package": "com.fruitkid.MyHematwin"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "63941753-ef4a-405f-9854-34d0185e2ad4"
+      }
+    }
+  }
+}
