@@ -34,11 +34,13 @@ export default function AuthScreen({ navigation, route }) {
     hemoglobin: 0,
   });
 
+  //for gender buttons
   const handleSelectSex = (sex) => {
     setSelectedSex(sex);
     setForm((prevForm) => ({ ...prevForm, sex })); // Ensure form is updated 
   };
 
+  //regarding the next button, ensuring fields have been filled in before users can move on
   const handleNextStep = () => {
     console.log("Form Data Before Next Step:", form); // Debugging
   
@@ -64,7 +66,7 @@ export default function AuthScreen({ navigation, route }) {
   };
 
   const handleBackStep = () => setStep((prev) => prev - 1);
-
+//for blood test scan, users pick iamge from library
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
@@ -73,7 +75,7 @@ export default function AuthScreen({ navigation, route }) {
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
-      setOcrFeedbackReceived(false); // ✅ Reset feedback state when a new image is selected
+      setOcrFeedbackReceived(false); // Reset feedback state when a new image is selected
       extractText(result.assets[0].uri);
     }
   };
@@ -96,7 +98,7 @@ export default function AuthScreen({ navigation, route }) {
       const response = await fetch("https://api.ocr.space/parse/image", {
         method: "POST",
         headers: {
-          "apikey": "K86648091188957", // Free API key (low limits)
+          "apikey": "K86648091188957", // Free API key from OCR space account, 2500? monthly request limit. Awesome.
         },
         body: formData,
       });
@@ -122,7 +124,7 @@ export default function AuthScreen({ navigation, route }) {
         if (index !== -1) {
           for (let i = index + 1; i < words.length; i++) {
             const cleanedNumber = words[i].replace(/[^0-9.]/g, ""); // Remove non-numeric characters
-            if (words[i].includes("-") || words[i].includes("/")) continue;
+            if (words[i].includes("-") || words[i].includes("/")) continue; //ensure numbers such as the normal range values aren't considered
 
   
             if (!isNaN(cleanedNumber) && cleanedNumber !== "") {
@@ -140,7 +142,7 @@ export default function AuthScreen({ navigation, route }) {
   
       // Extract and validate blood test values
       const extractedData = {
-        wbc: findValidNumber(["WBC", "White Blood Cell", "White Blood Cells"], 4000, 11000, 1000),
+        wbc: findValidNumber(["WBC", "White Blood Cell", "White Blood Cells"], 4000, 11000, 1000),    //Lower limit, upper limit, +/- leniency
         rbc: findValidNumber(["RBC", "Red Blood Cell", "Red Blood Cells"], 4.0, 6.5, 1.0),
         platelets: findValidNumber(["Platelets", "Platelet Count", "Platelet"], 150000, 410000, 10000),
         hemoglobin: findValidNumber(["Hemoglobin", "HGB", "HB"], 9.0, 18.5, 1.0),
@@ -160,7 +162,7 @@ export default function AuthScreen({ navigation, route }) {
     
   const handleSignUp = async () => {
     try {
-      const normalizedEmail = form.email.toLowerCase(); // Convert to lowercase
+      const normalizedEmail = form.email.toLowerCase(); // Convert to lowercase, make it easier for future processes/ standardisation
   
       // Check if the user already exists
       const existingUser = await getDoc(doc(db, "patients", normalizedEmail));

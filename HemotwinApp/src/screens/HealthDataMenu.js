@@ -7,7 +7,7 @@ import CustomButton from "../../components/CutomButton"; // Ensure correct impor
 
 export default function HealthDataMenu() {
   const navigation = useNavigation();
-  const blood = require("../../assets/bloodkid.png"); // Make sure you have a red heart icon in your assets folder
+  const blood = require("../../assets/bloodkid.png"); 
 
 
   return (

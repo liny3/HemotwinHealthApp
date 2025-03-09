@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, ScrollView, Alert, StyleSheet,TouchableOpacity } from "react-native";
 import { db, doc, getDoc, auth } from "../firebaseConfig";
-import CustomButton from "../../components/CutomButton"; // Ensure correct import
+import CustomButton from "../../components/CutomButton";
 import { useNavigation } from "@react-navigation/native";
 
 export default function MyRiskAssessment() {

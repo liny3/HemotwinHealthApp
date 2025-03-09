@@ -16,7 +16,7 @@ export default function Suggestions() {
   };
 
   // Heart icon for buttons
-  const heartIcon = require("../../assets/heart.png"); // Make sure you have a red heart icon in your assets folder
+  const heartIcon = require("../../assets/heart.png");
 
   // Header Image
   const headerImage = require("../../assets/Suggestionsdrop.png");

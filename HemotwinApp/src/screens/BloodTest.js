@@ -18,7 +18,7 @@ export default function MyHealthData() {
 
   const [loading, setLoading] = useState(true);
 
-  // ✅ Fetch profile & health data from Firestore
+  // Fetch profile & health data from Firestore
   useEffect(() => {
     const fetchData = async () => {
       if (!userEmail) {
@@ -47,18 +47,24 @@ export default function MyHealthData() {
     fetchData();
   }, [userEmail]);
 
-  // ✅ Get normal reference ranges based on age and sex
+  // Get normal reference ranges based on age and sex
   const getReferenceRange = (key) => {
     if (!profile) return "Loading...";
     const { sex, dob } = profile;
     if (!dob) return "N/A";
-
+    const Userage=0;
     const [day, month, year] = dob.split("/").map(Number);
     const currentYear = new Date().getFullYear();
-    const birthYear = year > 30 ? 1900 + year : 2000 + year;
-    const age = currentYear - birthYear;
+    const currentMonth = new Date().getMonth();
+    const currentDay= new Date().getDay();
+    const birthYear = year
+    if (currentMonth>=month && currentDay>=day){
+      Userage = currentYear - birthYear;
+    }else{
+      Userage=currentYear-birthYear-1;
+    }
 
-    const isChild = age < 18;
+    const isChild = Userage < 18;
     const isMale = sex?.toLowerCase() === "male";
 
     if (key === "wbc") return isChild ? "5,000 - 10,000 K/uL" : isMale ? "5,000 - 10,000 K/uL" : "4,500 - 11,000 K/uL";
@@ -71,7 +77,7 @@ export default function MyHealthData() {
 
 
   const [image, setImage] = useState(null);
-// ✅ Pick Image for OCR
+// Pick Image for OCR
 const pickImage = async () => {
   let result = await ImagePicker.launchImageLibraryAsync({
     allowsEditing: true,
@@ -85,7 +91,7 @@ const pickImage = async () => {
   }
 };
 
-// ✅ Extract Text from Image & Compare with Old Values
+//  Extract Text from Image & Compare with Old Values
 const extractText = async (imageUri) => {
   try {
     console.log("Processing image for OCR:", imageUri);
@@ -155,7 +161,7 @@ const extractText = async (imageUri) => {
 
     console.log("Extracted Blood Test Data:", extractedData);
 
-    // ✅ Compare extracted values with current values
+    // Compare extracted values with current values
     if (JSON.stringify(extractedData) !== JSON.stringify(healthData)) {
       console.log("Changes detected. Updating Firestore...");
       await saveHealthData(extractedData);
@@ -169,7 +175,7 @@ const extractText = async (imageUri) => {
   }
 };
 
-// ✅ Save Health Data to Firestore if changes are detected
+//  Save Health Data to Firestore if changes are detected
 const saveHealthData = async (newData) => {
   try {
     await setDoc(doc(db, "healthData", userEmail), newData);

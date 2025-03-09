@@ -131,7 +131,7 @@ export default function SettingsScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* Password Input Modal */}
+      {/* Password Input Modal. Required due to android... not having the iOS pop ups */}
       <Modal visible={modalVisible} transparent animationType="slide">
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>

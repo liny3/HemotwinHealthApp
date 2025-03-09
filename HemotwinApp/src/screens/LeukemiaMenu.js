@@ -1,11 +1,11 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import CustomButton from "../../components/CutomButton"; // Ensure correct import
+import CustomButton from "../../components/CutomButton"; 
 
 export default function LeukemiaRiskMenu() {
   const navigation = useNavigation();
-  const blood = require("../../assets/bloodkid.png"); // Make sure you have a red heart icon in your assets folder
+  const blood = require("../../assets/bloodkid.png"); 
 
 
   return (
